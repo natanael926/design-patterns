@@ -2,6 +2,7 @@
 
 interface CarService {
 	public function getCost();
+	public function getDescription();
 }
 
 class BasicInspection implements CarService
@@ -10,6 +11,11 @@ class BasicInspection implements CarService
 	public function getCost()
 	{
 		return 29;
+	}
+
+	public function getDescription()
+	{
+		return "Basic inspection";
 	}
 }
 
@@ -27,6 +33,11 @@ class OilChange implements CarService
 	{
 		return 29 + $this->carService->getCost();
 	}
+
+	public function getDescription()
+	{
+		return $this->carService->getDescription() . ", and oil change";
+	}
 }
 
 class TireRotation implements CarService
@@ -43,6 +54,15 @@ class TireRotation implements CarService
 	{
 		return 15 + $this->carService->getCost();
 	}
+
+	public function getDescription()
+	{
+		return $this->carService->getDescription() . ", and tire rotation";
+	}
 }
 
-echo (new TireRotation(new OilChange(new BasicInspection())))->getCost();
+$service = new OilChange(new BasicInspection);
+
+echo $service->getDescription();
+
+// echo (new TireRotation(new OilChange(new BasicInspection())))->getCost();
