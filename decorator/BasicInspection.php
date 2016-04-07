@@ -1,67 +1,66 @@
 <?php
 
-interface CarService {
-	public function getCost();
-	public function getDescription();
+interface CarService
+{
+    public function getCost();
+
+    public function getDescription();
 }
 
 class BasicInspection implements CarService
 {
-	
-	public function getCost()
-	{
-		return 29;
-	}
+    public function getCost()
+    {
+        return 29;
+    }
 
-	public function getDescription()
-	{
-		return "Basic inspection";
-	}
+    public function getDescription()
+    {
+        return 'Basic inspection';
+    }
 }
 
 class OilChange implements CarService
 {
-	
-	protected $carService;
+    protected $carService;
 
-	public function __construct(CarService $carService)
-	{
-		$this->carService = $carService;
-	}
+    public function __construct(CarService $carService)
+    {
+        $this->carService = $carService;
+    }
 
-	public function getCost()
-	{
-		return 29 + $this->carService->getCost();
-	}
+    public function getCost()
+    {
+        return 29 + $this->carService->getCost();
+    }
 
-	public function getDescription()
-	{
-		return $this->carService->getDescription() . ", and oil change";
-	}
+    public function getDescription()
+    {
+        return $this->carService->getDescription().', and oil change';
+    }
 }
 
 class TireRotation implements CarService
 {
-	
-	protected $carService;
+    protected $carService;
 
-	public function __construct(CarService $carService)
-	{
-		$this->carService = $carService;
-	}
+    public function __construct(CarService $carService)
+    {
+        $this->carService = $carService;
+    }
 
-	public function getCost()
-	{
-		return 15 + $this->carService->getCost();
-	}
+    public function getCost()
+    {
+        return 15 + $this->carService->getCost();
+    }
 
-	public function getDescription()
-	{
-		return $this->carService->getDescription() . ", and tire rotation";
-	}
+    public function getDescription()
+    {
+        return $this->carService->getDescription().', and tire rotation';
+    }
 }
 
-$service = new OilChange(new BasicInspection);
+$service = new OilChange(new BasicInspection());
 
 echo $service->getDescription();
 
